@@ -32,7 +32,7 @@
                 <div class="col-lg-4 iniciarSesion">
                     <h1 class="text-center">Iniciar sesion</h1>
                     <hr>
-                    <form action="{{url_for('autenticar_usuario')}}" method="POST">
+                    <form action="{{url_for('usuario')}}" method="POST">
                         <div class="mb-3">
                             <label for="usuario" class="form-label">Usuario</label>
                             <input type="text" class="form-control" name="usuario" placeholder="dni..." required pattern="[0-9]+">
@@ -55,7 +55,7 @@
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Ingresar</button>
                         </div>     
-                        </form>
+                    </form>
                 </div>
             </div>
         </section>

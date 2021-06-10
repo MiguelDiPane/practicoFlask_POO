@@ -47,3 +47,19 @@ body{
 .iniciarSesion h1{
     font-size: 1.8rem;
 }
+
+
+
+
+/* - Funcionalidades */
+
+.funcionalidad{
+    background: white;
+    padding: 5%;
+}
+
+.funcionalidad h2{
+    font-size: 2rem;
+    font-weight: 400;
+}
+
