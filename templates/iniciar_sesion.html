@@ -32,7 +32,7 @@
                 <div class="col-lg-4 iniciarSesion">
                     <h1 class="text-center">Iniciar sesion</h1>
                     <hr>
-                    <form action="{{url_for('usuario')}}" method="POST">
+                    <form action="{{url_for('autenticar_usuario')}}" method="POST">
                         <div class="mb-3">
                             <label for="usuario" class="form-label">Usuario</label>
                             <input type="text" class="form-control" name="usuario" placeholder="dni..." required pattern="[0-9]+">
@@ -62,7 +62,7 @@
     {% endif %}
 
     {% if registrarUsuario == True %}
-        <!-- Registrar usuario -->
+        <!-- REGISTRAR USUARIO -->
         <section class="container">
             <div class="row justify-content-center mt-5">
                 <div class="col-lg-4 iniciarSesion">
@@ -86,7 +86,7 @@
                             <p class="text-center text-success">Usuario registrado!</p>
                         {% endif %}
                         {% if usuarioRegistrado == True %}
-                            <p class="text-center text-danger">El usuario ya esta registrado</p>
+                            <p class="text-center text-danger">El usuario ya está registrado</p>
                         {% endif %} 
                         <div class="d-flex justify-content-between">
                             <a href="{{url_for('iniciar_sesion')}}" class="btn btn-primary">Volver</a>
