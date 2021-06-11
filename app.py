@@ -23,7 +23,7 @@ def inicio():
 def iniciar_sesion():
     return render_template('iniciar_sesion.html', iniciarSesion=True)
 
-@app.route('/usuario', methods=['GET','POST'])
+@app.route('/autenticar_usuario', methods=['GET','POST'])
 def autenticar_usuario():
     if request.method == 'POST':
         usuario_actual =  Usuario.query.filter_by(dni=request.form['usuario']).first()
@@ -39,8 +39,8 @@ def autenticar_usuario():
                     return redirect(url_for('cliente',cliente_dni = usuario_actual.dni))
                 elif usuario_actual.tipo == 'op':
                     return redirect(url_for('operador',operador_dni = usuario_actual.dni))
-                else:
-                    return render_template('iniciar_sesion.html',iniciarSesion=True, password = False)
+            else:
+                return render_template('iniciar_sesion.html',iniciarSesion=True, password = False)
 
 
 @app.route('/formulario_registrar_usuario')
@@ -129,11 +129,11 @@ def operador(operador_dni,estado = 0,volver= 1,numero = None, fecha = None):
     for viaje in viajes:
         if viaje.numMovil != None:
             viajes_sin_finalizar.append(viaje)
-    viajes_realizados = Viaje.query.filter(Viaje.importe.isnot(None))
     moviles = Movil.query.all()
     
-    viajes_movil = []
+    viajes_ralizados_movil = []
     importe_total = 0
+
     #Lectura de los viajes realizados por un movil
     if volver == 3 and estado == 1:
         viajes = Viaje.query.filter_by(numMovil=numero).all()
@@ -141,21 +141,20 @@ def operador(operador_dni,estado = 0,volver= 1,numero = None, fecha = None):
             #Convierto la fecha a string con el formato leido desde el formulario para comparar
             fechaViaje = viaje.fecha.strftime("%Y-%m-%d")
             if fechaViaje == fecha and viaje.duracion != None:
-                viajes_movil.append(viaje)
+                viajes_ralizados_movil.append(viaje)
                 importe_total += viaje.importe
 
     return render_template('funcionalidades_operador.html', 
                             datos=operador_actual, 
                             viajesSM = viajes_sin_movil,
                             viajesSF = viajes_sin_finalizar,
-                            viajesR = viajes_realizados, 
                             moviles = moviles,
                             estado = estado, #Que parte de viajes realizado renderizar
                             volver = volver, #Para mantenerse en la pestaña actual
                             fecha_movil = fecha,
                             numero_movil = numero,
                             importe_total = importe_total,
-                            viajes_movil = viajes_movil)
+                            viajes_movil = viajes_ralizados_movil)
 
 
 #Asignar movil a solicitud de viaje
