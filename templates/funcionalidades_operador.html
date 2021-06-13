@@ -155,9 +155,9 @@
                             <div class="col-sm">
                                 {% if estado == 0 %}
                                 <h2>Viajes realizados</h2>
-                                <p>Seleccione el número de móvil</p>
+                                <p>Seleccione el número de móvil y la fecha para ver los viajes realizados</p>
                                 <hr>
-                                <form  action="{{url_for('consultar_viajes',operador_dni = datos.dni)}}" method="POST">
+                                <form  action="{{url_for('consultar_viajes',operador_dni = datos.dni,estado = 1,volver=3)}}" method="POST">
                                     <label for="demora" class="form-label">N° de móvil</label>
                                     <select class="form-control w-50" name="numMovil">
                                         {% for movil in moviles %}
