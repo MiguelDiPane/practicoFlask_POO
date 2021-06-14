@@ -53,7 +53,7 @@
                     <!--PESTAÑA SOLICITAR MOVIL-->
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="row funcionalidad align-items-center justify-content-between">
-                            <div class="col-sm-5">
+                            <div class="col-lg-5">
                                 <h2>Solicita tu móvil</h2>
                                 <hr>
                                 <form id="formulario" action="{{url_for('solicitar_viaje',cliente_dni = datos.dni)}}" method="POST">
@@ -70,15 +70,16 @@
                                             <input type="number" value="1" min="1" max="20" class="form-control" name="cantPasajeros" required>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" name ="equipaje">
+                                            <input class="form-check-input" type="checkbox" name ="equipaje">
+                                            <input type="hidden" name ="equipaje" value="0">
                                             <label class="form-check-label" for="equipaje">Llevo equipaje</label>
                                             </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary m-3 ">Enviar solicitud</button>
+                                            <button type="submit" class="btn btn-primary  m-2">Enviar solicitud</button>
                                         </div>     
                                 </form>                                                       
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-lg-5">
                                 <img src="/static/img/decoraFondo/seleccionarDestino.svg" class="img-fluid" alt="" srcset="">
                             </div>
                         </div>
@@ -98,9 +99,11 @@
                                             <thead>
                                             <tr>
                                                 <th scope="col">Estado</th>
-                                                <th scope="col">Demora</th>
+                                                <th scope="col">Demora [min]</th>
                                                 <th scope="col">Origen</th>
                                                 <th scope="col">Destino</th>
+                                                <th scope="col">Pasajeros</th>
+                                                <th scope="col">Equipaje</th>
                                                 <th scope="col">Móvil</th>
                                                 <th scope="col">Patente</th>
                                                 <th scope="col">Marca</th>
@@ -118,6 +121,12 @@
                                                     {% endif %}                                                    
                                                     <td>{{viaje.origen}}</td>
                                                     <td>{{viaje.destino}}</td>
+                                                    <td>{{viaje.pasajeros}}</td>
+                                                    {% if viaje.equipaje == 1 %}
+                                                        <td>Sí</td>
+                                                    {% else %}
+                                                        <td>No</td>
+                                                    {% endif %}
                                                     
                                                     {% if viaje.numMovil == None %}
                                                         <td class="text-danger">No asignado</td>

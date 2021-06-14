@@ -90,13 +90,23 @@ def cliente(cliente_dni,estado = False):
 @app.route('/solicitar_viaje/<int:cliente_dni>', methods=['GET','POST'])
 def solicitar_viaje(cliente_dni):
     if request.method == 'POST':
+
+        equipaje = request.form['equipaje']
+        if equipaje == 'on':
+                equipaje = 1
+        else:
+            equipaje = 0
+        
         nuevo_viaje = Viaje(
             origen = request.form['dirOrigen'],
             destino = request.form['dirDestino'],
             fecha = datetime.today(),
             importe = 0.0,
+            pasajeros = request.form['cantPasajeros'],
+            equipaje = equipaje,
             dniCliente = cliente_dni 
         )
+        print(request.form['equipaje'])
         db.session.add(nuevo_viaje)
         db.session.commit()
         #Envio estado verdadero para indicar que se muestre el modal de movil solicitado
@@ -105,13 +115,19 @@ def solicitar_viaje(cliente_dni):
 
 #Carga viajes del usuario
 def cargar_viajes_usuario(dni):
-    viajes = Viaje.query.filter_by(duracion=None).distinct(Viaje.dniCliente == dni).all()
-    moviles = []
+    #Leo viajes que aun no finalizan
+    viajes = Viaje.query.filter_by(duracion=None).all()
+    #Almaceno solo los del usuario
+    viajes_pasajero = []
     for viaje in viajes:
+        if str(viaje.dniCliente) == str(dni):
+            viajes_pasajero.append(viaje)
+    moviles = []
+    for viaje in viajes_pasajero:
         movil = Movil.query.filter_by(numero = viaje.numMovil).first()
         if movil not in moviles:
             moviles.append(movil)   
-    return [viajes, moviles]
+    return [viajes_pasajero, moviles]
 
 
 #-------------------------------------#

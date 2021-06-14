@@ -26,5 +26,7 @@ class Viaje(db.Model):
     demora = db.Column(db.Integer,nullable=True)
     duracion = db.Column(db.Integer,nullable=True)
     importe = db.Column(db.Float,nullable=True)
+    pasajeros = db.Column(db.Integer,nullable = False)
+    equipaje = db.Column(db.Integer,nullable = True) #Porque el db browser lo modela como entero 0/1
     dniCliente = db.Column(db.String(8),db.ForeignKey('usuario.dni'))
     numMovil = db.Column(db.Integer,db.ForeignKey('movil.numero'), nullable = False)

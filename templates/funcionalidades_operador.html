@@ -71,6 +71,8 @@
                                             <th scope="col">Cliente</th>
                                             <th scope="col">Origen</th>
                                             <th scope="col">Destino</th>
+                                            <th scope="col">Pasajeros</th>
+                                            <th scope="col">Equipaje</th>
                                             <th scope="col">Móvil</th>
                                         </tr>
                                         </thead>
@@ -80,6 +82,12 @@
                                                 <td>{{viaje.dniCliente}}</td>                                                                                        
                                                 <td>{{viaje.origen}}</td>
                                                 <td>{{viaje.destino}}</td>
+                                                <td>{{viaje.pasajeros}}</td>
+                                                {% if viaje.equipaje == 1 %}
+                                                    <td>Sí</td>
+                                                {% else %}
+                                                    <td>No</td>
+                                                {% endif %}
                                                 <td>
                                                     <form  action="{{url_for('asignar_movil',operador_dni = datos.dni, id_viaje = viaje.idViaje)}}" method="POST">
                                                         <label for="demora" class="form-label">N° de móvil</label>
@@ -88,7 +96,7 @@
                                                                 <option value="{{movil.numero}}">{{movil.numero}}</option>
                                                             {% endfor %}
                                                         </select>
-                                                        <label for="demora" class="form-label">Demora</label>
+                                                        <label for="demora" class="form-label">Demora [min]</label>
                                                         <input type="number" class="form-control w-50" name="demora" min="0" value="0" required>
                                                         <button type="submit" class="btn btn-primary mt-2 mb-2">Asignar</button>
                                                     </form>
@@ -121,8 +129,10 @@
                                             <th scope="col">Cliente</th>
                                             <th scope="col">Origen</th>
                                             <th scope="col">Destino</th>
+                                            <th scope="col">Pasajeros</th>
+                                            <th scope="col">Equipaje</th>
                                             <th scope="col">Móvil</th>
-                                            <th scope="col">Duración</th>
+                                            <th scope="col">Duración [min]</th>
                                         </tr>
                                         </thead>
                                         <tbody>                               
@@ -132,6 +142,13 @@
                                                 <td>{{viaje.dniCliente}}</td>                                                                                        
                                                 <td>{{viaje.origen}}</td>
                                                 <td>{{viaje.destino}}</td>
+                                                
+                                                <td>{{viaje.pasajeros}}</td>
+                                                {% if viaje.equipaje == 1 %}
+                                                    <td>Sí</td>
+                                                {% else %}
+                                                    <td>No</td>
+                                                {% endif %}
                                                 <td>{{viaje.numMovil}}</td>
                                                 <td>
                                                     <form action="{{url_for('finalizar_viaje',operador_dni = datos.dni, id_viaje = viaje.idViaje)}}" method="POST">
@@ -188,7 +205,7 @@
                                                 <th scope="col">Origen</th>
                                                 <th scope="col">Destino</th>
                                                 <th scope="col">Duración [min]</th>
-                                                <th scope="col">Importe</th>
+                                                <th scope="col">Importe [$]</th>
                                             </tr>
                                             </thead>
                                             <tbody>                               
@@ -198,14 +215,14 @@
                                                     <td>{{viaje.origen}}</td>
                                                     <td>{{viaje.destino}}</td>
                                                     <td>{{viaje.duracion}}</td>
-                                                    <td>{{viaje.importe}}$</td>
+                                                    <td>{{viaje.importe}}</td>
                                                 </tr>
                                                 {% endfor %}
                                                 <tr>
                                                     <td>Total:</td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td class="text-danger">{{importe_total}}$</td>
+                                                    <td class="text-danger">{{importe_total}}</td>
                                                 </tr>                                           
                                             </tbody>
                                         </table> 
